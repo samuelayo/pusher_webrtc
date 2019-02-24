@@ -87,7 +87,7 @@
         caller.onaddstream = function(evt) {
             console.log("onaddstream called");
             if (window.URL) {
-                document.getElementById("remoteview").src = window.URL.createObjectURL(evt.stream);
+                document.getElementById("remoteview").srcObject = evt.stream;
             } else {
                 document.getElementById("remoteview").src = evt.stream;
             }
@@ -209,7 +209,7 @@
                     localUserMedia = stream;
                     toggleEndCallButton();
                     if (window.URL) {
-                        document.getElementById("selfview").src = window.URL.createObjectURL(stream);
+                        document.getElementById("selfview").srcObject = evt.stream;
                     } else {
                         document.getElementById("selfview").src = stream;
                     }
