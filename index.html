@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 
 <head>
@@ -94,7 +94,7 @@
         };
     }
     function getCam() {
-        //Get local audio/video feed and show it in selfview video element 
+        //Get local audio/video feed and show it in selfview video element
         return navigator.mediaDevices.getUserMedia({
             video: true,
             audio: true
@@ -125,7 +125,7 @@
         getCam()
             .then(stream => {
                 if (window.URL) {
-                    document.getElementById("selfview").src = window.URL.createObjectURL(stream);
+                    document.getElementById("selfview").srcObject = stream;
                 } else {
                     document.getElementById("selfview").src = stream;
                 }
@@ -158,7 +158,7 @@
     }
 
     function endCurrentCall(){
-        
+
         channel.trigger("client-endcall", {
                 "room": room
             });
@@ -197,7 +197,7 @@
     //Listening for Session Description Protocol message with session details from remote peer
     channel.bind("client-sdp", function(msg) {
         if(msg.room == id){
-            
+
             console.log("sdp received");
             var answer = confirm("You have a call from: "+ msg.from + "Would you like to answer?");
             if(!answer){
@@ -209,7 +209,7 @@
                     localUserMedia = stream;
                     toggleEndCallButton();
                     if (window.URL) {
-                        document.getElementById("selfview").srcObject = evt.stream;
+                        document.getElementById("selfview").srcObject = stream;
                     } else {
                         document.getElementById("selfview").src = stream;
                     }
@@ -229,7 +229,7 @@
                     console.log('an error occured', error);
                 })
         }
-        
+
 
     });
 
@@ -239,7 +239,7 @@
             console.log("answer received");
             caller.setRemoteDescription(new RTCSessionDescription(answer.sdp));
         }
-        
+
     });
 
     channel.bind("client-reject", function(answer) {
@@ -248,19 +248,19 @@
             alert("call to " + answer.rejected + "was politely declined");
             endCall();
         }
-        
+
     });
 
      channel.bind("client-endcall", function(answer) {
         if(answer.room==room){
             console.log("Call Ended");
             endCall();
-            
+
         }
-        
+
     });
 
-    
+
 </script>
 <style>
     video {
@@ -276,11 +276,11 @@
         -ms-transition: all 1s ease-in-out;
         transition: all 1s ease-in-out;
     }
-    
+
     #list ul {
         list-style: none;
     }
-    
+
     #list ul li {
         font-family: Georgia, serif, Times;
         font-size: 18px;
@@ -294,7 +294,7 @@
         text-decoration: none;
         color: #bfe1f1;
     }
-    
+
     #list ul li:hover {
         -moz-transform: rotate(-5deg);
         -moz-box-shadow: 10px 10px 20px #000000;
